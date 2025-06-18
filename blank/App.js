@@ -2,7 +2,7 @@
 /*Zona de importaciones
 */
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import {StyleSheet, Button, View, Text, Alert} from 'react-native';
 import React, { useState } from 'react';
 
 
@@ -23,7 +23,26 @@ export default function App() {
       <Texto style={styles.red}> </Texto>
       <Texto style={styles.black}> </Texto>
       <Texto style={styles.pink}> </Texto>
-      <Button title= "i´m a button"></Button>
+      <Button title= "i´m a button"
+      disabled></Button>
+      <Button
+        title="Presioname"
+        color="#841584"
+        onPress={() => Alert.alert('Me presionaste =P')}
+      ></Button>
+      <View style={styles.fixToText}>
+        <Button
+          title="Left button"
+          disabled
+          color="#674323"
+          onPress={() => Alert.alert('Left button pressed')}
+        ></Button>
+        <Button
+           title="Right button"
+           color="#097865"
+          onPress={() => Alert.alert('Right button pressed')}
+        ></Button>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -42,6 +61,10 @@ const styles = StyleSheet.create({
     color:'yellow',
     fontSize:40,
     height: 100,
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   red:{ backgroundColor:'orange'},
   black:{ backgroundColor:'pink'},

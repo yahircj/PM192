@@ -21,14 +21,10 @@ const Texto=({style})=>{
 */
 export default function App() {
   const [botonDesactivado, setBotonDesactivado] = useState(false);
-  const [colorBoton, setColorBoton] = useState('#123456');
   const [contador, setContador] = useState(0);
 
   return (
     <View style={styles.container}>
-      <Texto style={styles.red}> </Texto>
-      <Texto style={styles.black}> </Texto>
-      <Texto style={styles.pink}> </Texto>
       <Button title= "i´m a button"
       disabled></Button>
       <Button
@@ -55,17 +51,13 @@ export default function App() {
         onPress={() => setBotonDesactivado(true)}
       ></Button>
       <TouchableOpacity
-        style={styles.dynamicButton}
+        style={styles.Boton}
         onPress={() => setContador(contador + 1)}
       >
-        <Text style={styles.dynamicText}>{contador}</Text>
+        <Text style={styles.Botontexto}>{contador}</Text>
       </TouchableOpacity>
 
       <StatusBar style="auto" />
-      <TouchableOpacity
-        style={[styles.dynamicButton, { backgroundColor: colorBoton }]}
-        onPress={() => setColorBoton(colorBoton === '#1E90FF' ? '#987656' : '#1E90FF')}
-      ></TouchableOpacity>
       <TouchableOpacity 
       onPress= {()=> alert("La pokebola a sido presionada")}>
         <Image
@@ -100,14 +92,14 @@ const styles = StyleSheet.create({
   black:{ backgroundColor:'pink'},
   pink:{backgroundColor:'black'},
 
-  dynamicButton: {
+  Boton: {
     padding: 10,
     marginTop: 10,
     backgroundColor: '#987867',
     borderRadius: 5,
     alignItems: 'center'},
 
-  dynamicText: {
+  BotonTexto: {
     color: '#345676',
     fontSize: 18},
 

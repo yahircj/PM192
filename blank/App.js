@@ -2,48 +2,57 @@
 /*Zona de importaciones
 */
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 
 
-const Texto=({style})=>{
-  const [contenido, setContenido]=useState('hola pokemitas')
-  const actualizarTexto=()=>{setContenido('Estado actualizado')}
-  return(
-        <Text style={[styles.text, style]} onPress={actualizarTexto}>{contenido}</Text>
-  )
-}
+
 
 /*Zona 2 de ejecución 
   MAIN
 */
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Texto style={styles.red}> </Texto>
-      <Texto style={styles.black}> </Texto>
-      <Texto style={styles.pink}> </Texto>
-      <Button title= "i´m a button"></Button>
-      <StatusBar style="auto" />
+    <View>
+      <Button
+      title= "Presioname"
+      color= '#345456'
+      onPress={()=>alert('Me has presionado')}
+      >
+
+      </Button>
+      <View style={styles.contenedor}>
+        <Button
+        title= "Izquierda"
+        color= '#345456'
+        ></Button>
+        <Button
+        title= "Derecha"
+        color= '#657453'
+        >
+        </Button>
+      </View>
     </View>
   );
 }
 
 /*Zona 3 de estilos */
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'base-line',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-  text:{
-    color:'yellow',
-    fontSize:40,
-    height: 100,
-  },
-  red:{ backgroundColor:'orange'},
-  black:{ backgroundColor:'pink'},
-  pink:{backgroundColor:'black'},
+contenedor: {
+  flexDirection: 'row',
+  justifyContent: 'space-between'
+},
+Boton: {
+  marginTop: 10,
+  alingItems: 'center',
+  backgroundColor: '#234354'
+},
+TextoBoton: {
+  color: '#124354',
+  fontSize: 18,
+},
+Imagen:{
+  width: 100,
+  height: 100
+}
 });

@@ -2,7 +2,7 @@
 /*Zona de importaciones
 */
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Button, View, Text, Alert, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Button, View, Text, Alert, TouchableOpacity, Image, TextInput} from 'react-native';
 import React, { useState } from 'react';
 
 
@@ -20,8 +20,21 @@ const Texto=({style})=>{
   MAIN
 */
 export default function App() {
+  //botones
   const [botonDesactivado, setBotonDesactivado] = useState(false);
   const [contador, setContador] = useState(0);
+
+  //input and alert
+  const [nombre, setNombre]= useState('');
+  const mostrarAlerta =()=> {
+    if(nombre.trim()===''){
+      Alert.alert('error', 'Escriba algo');
+      alert('escribe algo')
+    } else {
+      Alert.alert('bienvenido ', `hola ${nombre}, bienvenido a nuestra app`);
+      alert('hola ' + nombre + ' bienvenido')
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -65,6 +78,21 @@ export default function App() {
           style={styles.imagen}
         />
       </TouchableOpacity>
+
+      <Text style={styles.textInput}>'Ingresa tu nombre'</Text>
+
+      <TextInput
+      style={styles.Input}
+      placeholder='Escribe tu nombre'
+      onChangeText={setNombre}
+      value={nombre}
+      >
+      </TextInput>
+      <Button
+      title='Enviar'
+      onPress={mostrarAlerta}>
+
+      </Button>
       <StatusBar style="auto" />
     </View>
   );
@@ -106,5 +134,18 @@ const styles = StyleSheet.create({
   imagen: {
     width: 100,
     height: 100},
-
+  textInput: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#000',
+  },
+  Input:{
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    marginBottom: 20,
+    borderRadius: 5,
+    backgroundColor: '#f9f9f9',
+    color: '#000',
+  }
 });

@@ -141,7 +141,9 @@ export default function App() {
       ) : (
         <View style={styles.mainContent}>
           <Text style={styles.mainText}>Pantalla principal</Text>
-          {/* Aquí va el resto de tu app después del splash */}
+          {/* Aquí va el resto de tu app después del splash */
+          
+          }
         </View>
       )}
     </SafeAreaView>

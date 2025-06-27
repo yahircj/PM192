@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, View, Text, Alert, TouchableOpacity, Image, TextInput } from 'react-native';
-import { ImageBackground, SafeAreaView } from 'react-native';
+import {
+  StyleSheet, Button, View, Text, Alert, TextInput, Switch, ImageBackground, SafeAreaView
+} from 'react-native';
 import React, { useState, useEffect } from 'react';
 
-
+// Splash screen con logo
 const FrogbyteSplash = () => {
   return (
-    <ImageBackground
-      source={require('./assets/LogoSplash.jpg')}
-      style={styles.fondoSplash}
-    >
+    <ImageBackground source={require('./assets/LogoSplash.jpg')} style={styles.fondoSplash}>
       <View style={styles.contenidoSplash}>
         <Text style={styles.tituloSplash}>Bienvenido a frogbyte</Text>
       </View>
@@ -18,72 +16,88 @@ const FrogbyteSplash = () => {
 };
 
 export default function App() {
-
-  //input and alert
+  // Estados
   const [nombre, setNombre] = useState('');
-  const mostrarAlerta = () => {
-    if (nombre.trim() === '') {
-      Alert.alert('error', 'Escriba algo');
-      alert('escribe algo')
-    } else {
-      Alert.alert('bienvenido ', `hola ${nombre}, bienvenido a nuestra app`);
-      alert('hola ' + nombre + ' bienvenido')
-    }
-  }
-
-  //SplashScreen
+  const [correo, setCorreo] = useState('');
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
 
+  // Temporizador para quitar splash
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowSplash(false);  // Ocultar splash después de 3 segundos
+      setShowSplash(false);
     }, 5000);
-
-    return () => clearTimeout(timer); // Limpiar timer al desmontar
+    return () => clearTimeout(timer);
   }, []);
+
+
+  const mostrarAlerta = () => {
+    // Validación: campos vacíos
+    if (nombre.trim() === '' || correo.trim() === '') {
+      Alert.alert('Error', 'Por favor completa todos los datos');
+      return;
+    }
+
+    // Validación: no aceptó términos
+    if (!aceptaTerminos) {
+      Alert.alert('Error', 'Debes aceptar los términos y condiciones');
+      return;
+    }
+
+    // Todo correcto → mostrar datos
+    Alert.alert(
+      'Registro exitoso',
+      `Nombre: ${nombre}\nCorreo: ${correo}`,
+      [{ text: 'OK' }]
+    );
+  };
 
   return (
     <SafeAreaView style={styles.containerSplash}>
       {showSplash ? (
         <FrogbyteSplash />
       ) : (
-        <View style={styles.mainContent}>
-          {
-          <Text style={styles.textInput}>'Ingresa tu nombre'</Text>
+        <ImageBackground source={require('./assets/LogoSplash.jpg')} style={styles.fondoSplash}>
+          <View style={styles.formulario}>
+            <Text style={styles.textoLabel}>Nombre completo:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder='Escribe tu nombre completo'
+              onChangeText={setNombre}
+              value={nombre}
+            />
 
-      <TextInput
-      style={styles.Input}
-      placeholder='Escribe tu nombre'
-      onChangeText={setNombre}
-      value={nombre}
-      >
-      </TextInput>
-      <Button
-      title='Enviar'
-      onPress={mostrarAlerta}>
+            <Text style={styles.textoLabel}>Correo electrónico:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder='ejemplo@correo.com'
+              keyboardType='email-address'
+              onChangeText={setCorreo}
+              value={correo}
+            />
 
-      </Button>
-          }
-        </View>
+            <View style={styles.terminosContainer}>
+              <Text style={styles.textoLabel}>Aceptar términos:</Text>
+              <Switch
+                value={aceptaTerminos}
+                onValueChange={setAceptaTerminos}
+              />
+            </View>
+
+            <Button title='Registrarse' onPress={mostrarAlerta} />
+          </View>
+        </ImageBackground>
       )}
     </SafeAreaView>
-
   );
 }
 
+// Estilos
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  //SPLASH
   containerSplash: {
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    flexDirection: 'column',
   },
   fondoSplash: {
     flex: 1,
@@ -93,11 +107,37 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)', // para oscurecer la imagen
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   tituloSplash: {
     fontSize: 28,
     color: 'white',
     fontWeight: 'bold',
+  },
+  formulario: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 30,
+    backgroundColor: 'rgba(255,255,255,0.85)',
+  },
+  textoLabel: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#333',
+  },
+  input: {
+    height: 40,
+    borderColor: '#555',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 15,
+    paddingHorizontal: 10,
+    backgroundColor: '#fff',
+  },
+  terminosContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    justifyContent: 'space-between',
   },
 });

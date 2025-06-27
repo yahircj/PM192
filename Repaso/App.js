@@ -19,10 +19,10 @@ const FrogbyteSplash = () => {
 
 export default function App() {
 
-   //input and alert
-  const [nombre, setNombre]= useState('');
-  const mostrarAlerta =()=> {
-    if(nombre.trim()===''){
+  //input and alert
+  const [nombre, setNombre] = useState('');
+  const mostrarAlerta = () => {
+    if (nombre.trim() === '') {
       Alert.alert('error', 'Escriba algo');
       alert('escribe algo')
     } else {
@@ -67,7 +67,7 @@ export default function App() {
         </View>
       )}
     </SafeAreaView>
-    
+
   );
 }
 

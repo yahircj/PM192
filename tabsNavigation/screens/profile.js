@@ -1,14 +1,38 @@
-import { View, Text, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text, StyleSheet, Button } from 'react-native';
+
+// Pantalla de perfil principal
+function ProfileScreen({ navigation }) {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Perfil de usuario</Text>
+            <Button 
+                title="Ver detalles" 
+                onPress={() => navigation.navigate('DetallesUsuario')}
+                color="green"
+            />
+        </View>
+    );
+}
+
+// Pantalla de detalles
+function UserDetailsScreen() {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Detalles de Usuario</Text>
+            <Text>Usando Navegacion Stack</Text>
+        </View>
+    );
+}
+
+const Stack = createStackNavigator();
 
 export default function Profile() {
     return (
-        <View style={styles.container}>
-            <View style={styles.iconRow}>
-                <Ionicons name="person-outline" size={28} color="green" />
-                <Text style={styles.title}>Perfil de usuario</Text>
-            </View>
-        </View>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="PerfilUsuario" component={ProfileScreen} />
+            <Stack.Screen name="DetallesUsuario" component={UserDetailsScreen} />
+        </Stack.Navigator>
     );
 }
 
@@ -20,14 +44,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
     },
-    iconRow: {
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
     title: {
         fontSize: 22,
         fontWeight: 'bold',
-        marginLeft: 10,
+        marginBottom: 20,
         color: 'green',
     },
 });

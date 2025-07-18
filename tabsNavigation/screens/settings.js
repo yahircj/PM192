@@ -1,14 +1,21 @@
+import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
+function SettingsScreen() {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Configuraciones de usuario</Text>
+        </View>
+    );
+}
+
+const Stack = createStackNavigator();
 
 export default function Settings() {
     return (
-        <View style={styles.container}> 
-            <View style={styles.iconRow}> 
-                <Ionicons name="settings-outline" size={28} color="blue" /> 
-                <Text style={styles.title}>Configuraciones de usuario</Text> 
-            </View>
-        </View>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Configuraciones" component={SettingsScreen} />
+        </Stack.Navigator>
     );
 }
 
@@ -20,14 +27,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
     },
-    iconRow: {
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
     title: {
         fontSize: 22,
         fontWeight: 'bold',
-        marginLeft: 10,
         color: 'blue',
     },
 });
